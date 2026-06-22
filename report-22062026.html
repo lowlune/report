@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work Report · Swiss Modern</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #fefefe;
+      --ink: #0d0d0d;
+      --ink-70: #4a4a4a;
+      --ink-40: #8a8a8a;
+      --ink-15: #d9d9d9;
+      --red: #e02020;
+      --red-bg: #fef5f5;
+      --grid-line: #ebebeb;
+      --surface: #fafafa;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #f4f4f4;
+      color: var(--ink);
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px 80px;
+      min-height: 100vh;
+    }
+
+    .broad {
+      width: 100%;
+      max-width: 1040px;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 0 36px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .topbar .identity h1 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .topbar .identity .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+
+    .topbar .dateline {
+      text-align: right;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-40);
+      line-height: 2;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .topbar .dateline strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* ── Ruler ── */
+    .ruler {
+      height: 2px;
+      background: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .ruler.thin {
+      height: 1px;
+      background: var(--ink-15);
+      margin-bottom: 40px;
+    }
+
+    /* ── Stats strip ── */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--ink-15);
+      margin-bottom: 40px;
+    }
+
+    .stats-strip .ss-cell {
+      background: var(--paper);
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .ss-cell .ss-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .ss-cell .ss-num.red { color: var(--red); }
+
+    .ss-cell .ss-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-40);
+    }
+
+    /* ── Section ── */
+    .section-block {
+      margin-bottom: 48px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--ink-15);
+    }
+
+    .section-head .sec-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--ink-40);
+      min-width: 28px;
+    }
+
+    .section-head .sec-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .section-head .sec-sub {
+      font-size: 0.75rem;
+      color: var(--ink-40);
+      margin-left: auto;
+      font-weight: 400;
+    }
+
+    /* ── Task row ── */
+    .task-row {
+      display: grid;
+      grid-template-columns: 36px 1fr 140px 100px;
+      gap: 0;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--grid-line);
+      align-items: flex-start;
+      transition: background 0.15s ease;
+    }
+
+    .task-row:hover {
+      background: var(--surface);
+      margin: 0 -12px;
+      padding-left: 12px;
+      padding-right: 12px;
+      border-radius: 2px;
+    }
+
+    .task-row .tr-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--ink-40);
+      padding-top: 1px;
+      font-weight: 400;
+    }
+
+    .task-row .tr-body h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .task-row .tr-body p {
+      font-size: 0.78rem;
+      color: var(--ink-40);
+      line-height: 1.45;
+      margin-top: 3px;
+    }
+
+    .task-row .tr-kind {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding-top: 3px;
+    }
+
+    .tr-kind.file { color: #1a8a1a; }
+    .tr-kind.chat { color: var(--ink-40); }
+
+    /* ── Thumbnail strip ── */
+    .thumb-strip {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .thumb-strip a {
+      display: block;
+      width: 76px;
+      height: 76px;
+      border: 1px solid var(--ink-15);
+      border-radius: 2px;
+      overflow: hidden;
+      background: var(--surface);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .thumb-strip a:hover {
+      border-color: var(--ink);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .thumb-strip img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumb-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 76px;
+      height: 76px;
+      border: 1px solid var(--ink-15);
+      border-radius: 2px;
+      background: var(--surface);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--ink-40);
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    /* ── Hour display ── */
+    .task-row .tr-hours {
+      text-align: right;
+      padding-top: 3px;
+    }
+
+    .hour-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* ── Total bar ── */
+    .total-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0;
+      border-top: 2px solid var(--ink);
+      margin-top: 8px;
+    }
+
+    .total-bar .tb-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--ink);
+    }
+
+    .total-bar .tb-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .task-row { grid-template-columns: 28px 1fr 80px 72px; }
+      .task-row .tr-kind { font-size: 0.52rem; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); }
+      .topbar .identity h1 { font-size: 2rem; }
+      .thumb-strip a, .thumb-more { width: 56px; height: 56px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="broad">
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="identity">
+        <div class="tag">Prehľad prác</div>
+        <h1>Projektový report</h1>
+      </div>
+      <div class="dateline">
+        Dátum &nbsp;<strong>22. 06. 2026</strong><br />
+        Ref &nbsp;&nbsp;&nbsp;&nbsp;<strong>REF‑2026‑001</strong>
+      </div>
+    </header>
+
+    <div class="ruler"></div>
+    <div class="ruler thin"></div>
+
+    <!-- Stats strip -->
+    <div class="stats-strip" id="stats-strip"></div>
+
+    <!-- Content -->
+    <div id="content"></div>
+
+    <!-- Total bar -->
+    <div class="total-bar">
+      <span class="tb-label">Celkový Čas</span>
+      <span class="tb-value" id="grand-total">—</span>
+    </div>
+  </div>
+
+  <script>
+    const ENORI_BASE = "X:/Projekty/Enori";
+    const fileUri = (path) => encodeURI("file:///" + path.replace(/\\/g, "/"));
+
+    const tasks = [
+      // ── Enori – zoradené podľa priečinka ──
+      {
+        section: "Enori",
+        folder: "",
+        title: "Základný export pack",
+        estimate: 2.0,
+        kind: "file-backed",
+        visualCount: 11,
+        supportCount: 5,
+        note: "Vizuály, editačné podklady a podporné exporty.",
+        thumbs: [
+          "Homepage CZ.jpg",
+          "Homepage SK.jpg",
+          "Emailing CZ.jpg",
+          "Square variant 1.jpg",
+          "Story variant 1.jpg"
+        ]
+      },
+      {
+        section: "Enori",
+        folder: "Dárek zdarma",
+        title: "Grafika — Připravit bannery na dárek zdarma",
+        estimate: 1.5,
+        kind: "file-backed",
+        visualCount: 10,
+        supportCount: 0,
+        note: "Reklamné bannery a alternatívne varianty.",
+        thumbs: [
+          "Dárek zdarma/Dárek zdarma 1080x1350.jpg",
+          "Dárek zdarma/Dárek zdarma 1080x1920.jpg",
+          "Dárek zdarma/Dárek zdarma 522x100.jpg",
+          "Dárek zdarma/2x/Frame 1000001392.jpg"
+        ]
+      },
+      {
+        section: "Enori",
+        folder: "Den deti",
+        title: "Připravit bannery na akci: Mezinárodní den dětí",
+        estimate: 1.5,
+        kind: "file-backed",
+        visualCount: 7,
+        supportCount: 0,
+        note: "Akciové bannery a varianty pre viacero formátov.",
+        thumbs: [
+          "Den deti/Homepage CZ.jpg",
+          "Den deti/Emailing CZ.jpg",
+          "Den deti/Square den dětí 1.jpg",
+          "Den deti/Square den dětí 2.jpg"
+        ]
+      },
+      {
+        section: "Enori",
+        folder: "Den rodiny",
+        title: "Připravit bannery na akci: Mezinárodní den rodiny",
+        estimate: 1.5,
+        kind: "file-backed",
+        visualCount: 16,
+        supportCount: 0,
+        note: "Akciové bannery a varianty pre viacero formátov.",
+        thumbs: [
+          "Den rodiny/Homepage CZ.jpg",
+          "Den rodiny/Emailing CZ.jpg",
+          "Den rodiny/2/Square.jpg",
+          "Den rodiny/2/Story.jpg"
+        ]
+      },
+      {
+        section: "Enori",
+        folder: "Heureka",
+        title: "Reklamní bannery Heureka recenze",
+        estimate: 2.0,
+        kind: "file-backed",
+        visualCount: 12,
+        supportCount: 0,
+        note: "Reklamné bannery a kreatívy pre dôveryhodnosť.",
+        thumbs: [
+          "Heureka/Důkaz místo slibů.jpg",
+          "Heureka/Emoční klid.jpg",
+          "Heureka/Logika vs. Cena.jpg"
+        ]
+      },
+      {
+        section: "Enori",
+        folder: "Nightshopping",
+        title: "Nightshopping 15% sleva na vše",
+        estimate: 1.5,
+        kind: "file-backed",
+        visualCount: 6,
+        supportCount: 0,
+        note: "Akciové bannery a varianty pre viacero kanálov.",
+        thumbs: [
+          "Nightshopping/Homepage CZ.jpg",
+          "Nightshopping/Emailing CZ.jpg",
+          "Nightshopping/Square.jpg",
+          "Nightshopping/Story.jpg"
+        ]
+      },
+      {
+        section: "Enori",
+        folder: "Rodinná imunita",
+        title: "Rodinná imunita na jaro / 3+1 zdarma",
+        estimate: 2.5,
+        kind: "file-backed",
+        visualCount: 11,
+        supportCount: 0,
+        note: "Reklamné bannery, vizuály a podporná grafika.",
+        thumbs: [
+          "Rodinná imunita/Rodinná imunita na jaro – 3+1 zdarma.jpg",
+          "Rodinná imunita/Homepage.jpg",
+          "Rodinná imunita/Emailing.jpg",
+          "Rodinná imunita/Příběh v grafech.jpg"
+        ]
+      },
+      {
+        section: "Enori",
+        folder: null,
+        title: "Reklamní banner Odborný",
+        estimate: 1.0,
+        kind: "chat-only",
+        visualCount: 0,
+        supportCount: 0,
+        note: "Reklamný banner — odborná komunikácia.",
+        thumbs: []
+      },
+
+      // ── Ops / Content ──
+      {
+        section: "Ops",
+        folder: null,
+        title: "Marshalls Spain social posting",
+        estimate: 3.0,
+        kind: "chat-only",
+        visualCount: 0,
+        supportCount: 0,
+        note: "Správa sociálnych sietí, tvorba a úprava obsahu, copywriting.",
+        thumbs: []
+      },
+      {
+        section: "Ops",
+        folder: null,
+        title: "Audity",
+        estimate: 3.0,
+        kind: "chat-only",
+        visualCount: 0,
+        supportCount: 0,
+        note: "Kontrola a revízia podkladov, výstupov a nastavení.",
+        thumbs: []
+      },
+
+      // ── Blaze ──
+      {
+        section: "Blaze",
+        folder: null,
+        title: "Bannery",
+        estimate: 2.5,
+        kind: "chat-only",
+        visualCount: 0,
+        supportCount: 0,
+        note: "Tvorba bannerov pre Blaze.",
+        thumbs: []
+      },
+
+      // ── Lavista / Lead Gen ──
+      {
+        section: "Lavista",
+        folder: null,
+        title: "Lavista — kompletný web a lead gen",
+        estimate: 16.0,
+        kind: "chat-only",
+        visualCount: 0,
+        supportCount: 0,
+        note: "Doména, publishing, basic SEO, full CRM, multijazyčnosť, optimalizácia, revízie, thank-you page, A/B offer stránky, lead-gen testovanie, FB pixel, Clarity.",
+        thumbs: []
+      },
+    ];
+
+    // Sort Enori tasks by folder (empty string first, then alphabetical, null last)
+    const folderOrder = (t) => {
+      if (t.section !== "Enori") return 0;
+      if (t.folder === "") return 0;
+      if (t.folder === null) return 2;
+      return 1;
+    };
+    const enoriTasks = tasks.filter(t => t.section === "Enori");
+    const otherTasks = tasks.filter(t => t.section !== "Enori");
+    enoriTasks.sort((a, b) => {
+      const oa = folderOrder(a);
+      const ob = folderOrder(b);
+      if (oa !== ob) return oa - ob;
+      if (oa === 1) return (a.folder || "").localeCompare(b.folder || "", "sk");
+      return 0;
+    });
+    const sorted = [...enoriTasks, ...otherTasks];
+
+    const sections = ["Enori", "Ops", "Lavista", "Blaze"];
+    const sectionMeta = {
+      Enori: { num: "01", title: "Enori", sub: "" },
+      Ops: { num: "02", title: "Ops / Content", sub: "" },
+      Lavista: { num: "03", title: "Kompletný web — lead gen", sub: "" },
+      Blaze: { num: "04", title: "Blaze", sub: "" },
+    };
+
+    function recalcTotal() {
+      const sum = tasks.reduce((s, t) => s + t.estimate, 0);
+      document.getElementById('grand-total').textContent = sum.toFixed(2) + ' h';
+    }
+
+    function buildThumbs(task) {
+      if (!task.thumbs || task.thumbs.length === 0) return "";
+      const MAX_VISIBLE = 6;
+      const visible = task.thumbs.slice(0, MAX_VISIBLE);
+      const extra = task.thumbs.length - MAX_VISIBLE;
+      let html = '<div class="thumb-strip">';
+      for (const t of visible) {
+        const fullPath = task.folder
+          ? ENORI_BASE + "/" + task.folder + "/" + t
+          : ENORI_BASE + "/" + t;
+        // If thumbs path already includes folder prefix, use as-is
+        const actualPath = t.includes("/") ? ENORI_BASE + "/" + t : fullPath;
+        html += `<a href="${fileUri(actualPath)}" target="_blank" title="${t.split("/").pop()}"><img src="${fileUri(actualPath)}" alt="" loading="lazy" /></a>`;
+      }
+      if (extra > 0) {
+        html += `<span class="thumb-more">+${extra}</span>`;
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function buildAll() {
+      // Stats
+      const totalVis = tasks.reduce((s, t) => s + t.visualCount, 0);
+      const totalSup = tasks.reduce((s, t) => s + t.supportCount, 0);
+      const totalEst = tasks.reduce((s, t) => s + t.estimate, 0);
+      document.getElementById('stats-strip').innerHTML = [
+        { num: tasks.length, label: 'Taskov', red: false },
+        { num: totalVis, label: 'Vizuálnych Súborov', red: false },
+        { num: totalSup, label: 'Podporných Súborov', red: false },
+        { num: totalEst.toFixed(1) + ' h', label: 'Odhad Hodín', red: true },
+      ].map(s => `<div class="ss-cell"><div class="ss-num${s.red ? ' red' : ''}">${s.num}</div><div class="ss-label">${s.label}</div></div>`).join('');
+
+      // Task rows
+      let html = '';
+      let globalIdx = 0;
+      for (const sec of sections) {
+        const secTasks = sorted.filter(t => t.section === sec);
+        if (!secTasks.length) continue;
+        const meta = sectionMeta[sec];
+        html += `<div class="section-block">
+          <div class="section-head">
+            <span class="sec-num">${meta.num}</span>
+            <span class="sec-title">${meta.title}</span>
+            <span class="sec-sub">${meta.sub}</span>
+          </div>`;
+        for (const t of secTasks) {
+          globalIdx++;
+          const kindClass = t.kind === 'file-backed' ? 'file' : 'chat';
+          const kindLabel = t.kind === 'file-backed' ? 'File' : 'Chat';
+          html += `<div class="task-row">
+            <span class="tr-num">${String(globalIdx).padStart(2, '0')}</span>
+            <div class="tr-body">
+              <h3>${t.title}</h3>
+              <p>${t.note}</p>
+              ${buildThumbs(t)}
+            </div>
+            <span class="tr-kind ${kindClass}">${kindLabel}</span>
+            <div class="tr-hours">
+              <span class="hour-value">${t.estimate.toFixed(2)} h</span>
+            </div>
+          </div>`;
+        }
+        html += `</div>`;
+      }
+      document.getElementById('content').innerHTML = html;
+      recalcTotal();
+    }
+
+    buildAll();
+  </script>
+</body>
+</html>
