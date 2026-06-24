@@ -307,6 +307,33 @@
       color: var(--red);
     }
 
+    /* ── Section subtotal ── */
+    .section-subtotal {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0 10px;
+      border-bottom: 1px solid var(--ink-15);
+    }
+
+    .section-subtotal .sub-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-40);
+    }
+
+    .section-subtotal .sub-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink);
+      min-width: 55px;
+      text-align: right;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 700px) {
       .task-row { grid-template-columns: 28px 1fr 80px 72px; }
@@ -357,7 +384,7 @@
         section: "Enori",
         folder: "",
         title: "Základný export pack",
-        estimate: 2.0,
+        estimate: 1.5,
         kind: "file-backed",
         visualCount: 11,
         supportCount: 5,
@@ -422,7 +449,7 @@
         section: "Enori",
         folder: "Heureka",
         title: "Reklamní bannery Heureka recenze",
-        estimate: 2.0,
+        estimate: 1.5,
         kind: "file-backed",
         visualCount: 12,
         supportCount: 0,
@@ -453,7 +480,7 @@
         section: "Enori",
         folder: "Rodinná imunita",
         title: "Rodinná imunita na jaro / 3+1 zdarma",
-        estimate: 2.5,
+        estimate: 1.5,
         kind: "file-backed",
         visualCount: 11,
         supportCount: 0,
@@ -605,8 +632,10 @@
             <span class="sec-title">${meta.title}</span>
             <span class="sec-sub">${meta.sub}</span>
           </div>`;
+        let secTotal = 0;
         for (const t of secTasks) {
           globalIdx++;
+          secTotal += t.estimate;
           const kindClass = t.kind === 'file-backed' ? 'file' : 'chat';
           const kindLabel = t.kind === 'file-backed' ? 'File' : 'Chat';
           html += `<div class="task-row">
@@ -622,6 +651,10 @@
             </div>
           </div>`;
         }
+        html += `<div class="section-subtotal">
+          <span class="sub-label">${meta.title} spolu</span>
+          <span class="sub-value">${secTotal.toFixed(2)} h</span>
+        </div>`;
         html += `</div>`;
       }
       document.getElementById('content').innerHTML = html;
