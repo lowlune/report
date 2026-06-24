@@ -541,6 +541,54 @@
         note: "Doména, publishing, basic SEO, full CRM, multijazyčnosť, optimalizácia, revízie, thank-you page, A/B offer stránky, lead-gen testovanie, FB pixel, Clarity.",
         thumbs: []
       },
+
+      // ── Hrmi ──
+      {
+        section: "Hrmi",
+        folder: null,
+        title: "byhrmi",
+        estimate: 1.5,
+        kind: "chat-only",
+        visualCount: 0,
+        supportCount: 0,
+        note: "",
+        thumbs: []
+      },
+      {
+        section: "Hrmi",
+        folder: null,
+        title: "iamboutique",
+        estimate: 1.5,
+        kind: "chat-only",
+        visualCount: 0,
+        supportCount: 0,
+        note: "",
+        thumbs: []
+      },
+      {
+        section: "Hrmi",
+        folder: null,
+        title: "prly weby",
+        estimate: 1.5,
+        kind: "chat-only",
+        visualCount: 0,
+        supportCount: 0,
+        note: "",
+        thumbs: []
+      },
+
+      // ── Codexante ──
+      {
+        section: "Codexante",
+        folder: null,
+        title: "Zmeny web",
+        estimate: 0.5,
+        kind: "chat-only",
+        visualCount: 0,
+        supportCount: 0,
+        note: "",
+        thumbs: []
+      },
     ];
 
     // Sort Enori tasks by folder (empty string first, then alphabetical, null last)
@@ -561,12 +609,14 @@
     });
     const sorted = [...enoriTasks, ...otherTasks];
 
-    const sections = ["Enori", "Ops", "Lavista", "Blaze"];
+    const sections = ["Enori", "Ops", "Lavista", "Blaze", "Hrmi", "Codexante"];
     const sectionMeta = {
       Enori: { num: "01", title: "Enori", sub: "" },
       Ops: { num: "02", title: "Ops / Content", sub: "" },
       Lavista: { num: "03", title: "Kompletný web — lead gen", sub: "" },
       Blaze: { num: "04", title: "Blaze", sub: "" },
+      Hrmi: { num: "05", title: "Hrmi", sub: "" },
+      Codexante: { num: "06", title: "Codexante", sub: "" },
     };
 
     function recalcTotal() {
