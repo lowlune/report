@@ -168,7 +168,7 @@
     /* ── Task row ── */
     .task-row {
       display: grid;
-      grid-template-columns: 36px 1fr 140px 100px;
+      grid-template-columns: 36px 1fr 100px;
       gap: 0;
       padding: 14px 0;
       border-bottom: 1px solid var(--grid-line);
@@ -206,18 +206,6 @@
       line-height: 1.45;
       margin-top: 3px;
     }
-
-    .task-row .tr-kind {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.58rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding-top: 3px;
-    }
-
-    .tr-kind.file { color: #1a8a1a; }
-    .tr-kind.chat { color: var(--ink-40); }
 
     /* ── Thumbnail strip ── */
     .thumb-strip {
@@ -336,7 +324,7 @@
 
     /* ── Responsive ── */
     @media (max-width: 700px) {
-      .task-row { grid-template-columns: 28px 1fr 80px 72px; }
+      .task-row { grid-template-columns: 28px 1fr 72px; }
       .task-row .tr-kind { font-size: 0.52rem; }
       .stats-strip { grid-template-columns: repeat(2, 1fr); }
       .topbar .identity h1 { font-size: 2rem; }
@@ -636,8 +624,6 @@
         for (const t of secTasks) {
           globalIdx++;
           secTotal += t.estimate;
-          const kindClass = t.kind === 'file-backed' ? 'file' : 'chat';
-          const kindLabel = t.kind === 'file-backed' ? 'File' : 'Chat';
           html += `<div class="task-row">
             <span class="tr-num">${String(globalIdx).padStart(2, '0')}</span>
             <div class="tr-body">
@@ -645,7 +631,6 @@
               <p>${t.note}</p>
               ${buildThumbs(t)}
             </div>
-            <span class="tr-kind ${kindClass}">${kindLabel}</span>
             <div class="tr-hours">
               <span class="hour-value">${t.estimate.toFixed(2)} h</span>
             </div>
